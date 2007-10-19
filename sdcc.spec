@@ -12,6 +12,7 @@ BuildRequires: gcc-c++
 BuildRequires: gawk
 BuildRequires: glibc-devel
 BuildRequires: gputils
+BuildRequires: flex
 BuildRequires: libncurses-devel
 BuildRequires: libstdc++-devel
 BuildRequires: make
