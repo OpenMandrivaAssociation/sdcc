@@ -25,7 +25,7 @@ for other 8 bit MCUs or PICs.
 
 %package doc
 Summary: Extra documentation about sdcc
-Group: Documentation
+Group: Books/Other
 
 %description doc
 Extra documentation about sdcc
@@ -77,5 +77,4 @@ rm -rf %{buildroot}
 
 %files doc
 %defattr(0644,root,root,0755)
-#%{_defaultdocdir}/sdcc-doc-%{version}/
 %{_docdir}/sdcc/
