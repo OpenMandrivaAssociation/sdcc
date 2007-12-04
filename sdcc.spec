@@ -1,7 +1,7 @@
 Name: sdcc
 Version: 2.7.0.20071018.4933
 Release: %mkrel 1
-Summary: SDCC - Small Device C Compiler.
+Summary: SDCC - Small Device C Compiler
 Group: Development/Other
 License: GPL
 URL: http://sdcc.sourceforge.net/
