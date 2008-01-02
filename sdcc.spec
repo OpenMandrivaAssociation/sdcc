@@ -16,6 +16,7 @@ BuildRequires: flex
 BuildRequires: libncurses-devel
 BuildRequires: libstdc++-devel
 BuildRequires: make
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 %description
 SDCC is a Free ware , retargettable, optimizing ANSI-C compiler. The
