@@ -1,80 +1,62 @@
-Name: sdcc
-Version: 2.7.0.20071018.4933
-Release: %mkrel 1
-Summary: SDCC - Small Device C Compiler
-Group: Development/Other
-License: GPL
-URL: http://sdcc.sourceforge.net/
-Source: http://sdcc.sourceforge.net/snapshots/sdcc.src/%{name}-src-20071018-4933.tar.bz2
-BuildRequires: binutils
-BuildRequires: bison
-BuildRequires: gcc-c++
-BuildRequires: gawk
-BuildRequires: glibc-devel
-BuildRequires: gputils
-BuildRequires: flex
-BuildRequires: libncurses-devel
-BuildRequires: libstdc++-devel
-BuildRequires: make
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
+%define name	sdcc
+%define version	2.8.0
+%define rel	2
+
+Name:		%{name}
+Version:	%{version}
+Release:	%mkrel %{rel}
+Summary:	SDCC - Small Device C Compiler
+Group:		Development/Other
+License:	GPL
+URL:		http://sdcc.sourceforge.net/
+Source:		http://sdcc.sourceforge.net/snapshots/sdcc.src/%{name}-src-%{version}.tar.bz2
+BuildRequires:	binutils
+BuildRequires:	bison
+BuildRequires:	flex
+BuildRequires:	gawk
+BuildRequires:	gcc-c++
+BuildRequires:	glibc-devel
+BuildRequires:	gputils
+BuildRequires:	latex2html
+BuildRequires:	libgc-devel
+BuildRequires:	libncurses-devel
+BuildRequires:	libstdc++-devel
+BuildRequires:	lyx
+BuildRequires:	make
+Requires:	gputils
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
+Provides:	%{name}-doc
+Obsoletes:	%{name}-doc
 
 %description
-SDCC is a Free ware , retargettable, optimizing ANSI-C compiler. The
-current version targets Intel 8051 based MCUs, it can be retargetted
-for other 8 bit MCUs or PICs.
-
-%package doc
-Summary: Extra documentation about sdcc
-Group: Books/Other
-
-%description doc
-Extra documentation about sdcc
+SDCC is a retargettable, optimizing ANSI-C compiler that targets the
+Intel 8051, Maxim 80DS390, Zilog Z80 and the Motorola 68HC08 based
+MCUs. Work is in progress on supporting the Microchip PIC16 and
+PIC18 series. 
 
 %prep
-%setup -q -c -n %{name}
+%setup -q -n %{name}
 
 %build
-cd sdcc
-%configure --docdir %{_docdir}/sdcc
+%configure2_5x \
+%if %{mdkversion} >= 200810
+	--enable-libgc \
+%endif
+	--enable-doc
 # Parallel build is broken
 make
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}
-ln -f sdcc/COPYING .
-cd sdcc
-make install DESTDIR=%{buildroot}
+%makeinstall
+mv -f %{buildroot}/%{_datadir}/doc installed-docs
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(0644,root,root,0755)
-%doc COPYING
-%{_datadir}/sdcc/
-%defattr(0755,root,root,0755)
-%{_bindir}/as-gbz80
-%{_bindir}/as-hc08
-%{_bindir}/as-z80
-%{_bindir}/aslink
-%{_bindir}/asx8051
-%{_bindir}/link-gbz80
-%{_bindir}/link-hc08
-%{_bindir}/link-z80
-%{_bindir}/makebin
-%{_bindir}/packihx
-%{_bindir}/s51
-%{_bindir}/savr
-%{_bindir}/sdcc
-%{_bindir}/sdcclib
-%{_bindir}/sdcdb
-%{_bindir}/sdcdb.el
-%{_bindir}/sdcdbsrc.el
-%{_bindir}/sdcpp
-%{_bindir}/shc08
-%{_bindir}/sz80
-
-%files doc
-%defattr(0644,root,root,0755)
-%{_docdir}/sdcc/
+%doc README ChangeLog COPYING
+%doc installed-docs/*
+%{_bindir}/*
+%{_datadir}/%{name}
