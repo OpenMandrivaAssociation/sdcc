@@ -1,6 +1,6 @@
 %define name	sdcc
 %define version	2.8.0
-%define rel	2
+%define rel	3
 
 Name:		%{name}
 Version:	%{version}
@@ -23,6 +23,7 @@ BuildRequires:	libncurses-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	lyx
 BuildRequires:	make
+BuildRequires:	python
 Requires:	gputils
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 Provides:	%{name}-doc
