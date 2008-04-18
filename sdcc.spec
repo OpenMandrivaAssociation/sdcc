@@ -1,6 +1,6 @@
 %define name	sdcc
 %define version	2.8.0
-%define rel	3
+%define rel	4
 
 Name:		%{name}
 Version:	%{version}
@@ -59,5 +59,5 @@ rm -rf %{buildroot}
 %defattr(0644,root,root,0755)
 %doc README ChangeLog COPYING
 %doc installed-docs/*
-%{_bindir}/*
+%attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
