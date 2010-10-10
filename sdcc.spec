@@ -1,6 +1,6 @@
 %define name	sdcc
 %define version	2.8.0
-%define rel	5
+%define rel	6
 
 Name:		%{name}
 Version:	%{version}
