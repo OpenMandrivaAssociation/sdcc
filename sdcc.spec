@@ -1,6 +1,6 @@
 %define name	sdcc
-%define version	2.8.0
-%define rel	6
+%define version	3.0.0
+%define rel	1
 
 Name:		%{name}
 Version:	%{version}
@@ -10,6 +10,7 @@ Group:		Development/Other
 License:	GPL
 URL:		http://sdcc.sourceforge.net/
 Source:		http://sdcc.sourceforge.net/snapshots/sdcc.src/%{name}-src-%{version}.tar.bz2
+Patch0:		fix-build-on-mandriva.patch
 BuildRequires:	binutils
 BuildRequires:	bison
 BuildRequires:	flex
@@ -24,8 +25,8 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	lyx
 BuildRequires:	make
 BuildRequires:	python
+BuildRequires:	readline-devel
 Requires:	gputils
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 Provides:	%{name}-doc
 Obsoletes:	%{name}-doc
 
@@ -37,19 +38,16 @@ PIC18 series.
 
 %prep
 %setup -q -n %{name}
+%patch0 -p0
 
 %build
-%configure2_5x \
-%if %{mdkversion} >= 200810
-	--enable-libgc \
-%endif
-	--enable-doc
-# Parallel build is broken
+%configure2_5x 
+
 make
 
 %install
 rm -rf %{buildroot}
-%makeinstall
+%makeinstall_std
 mv -f %{buildroot}/%{_datadir}/doc installed-docs
 
 %clean
