@@ -1,6 +1,6 @@
 %define name	sdcc
 %define version	3.0.0
-%define rel	2
+%define rel	3
 
 Name:		%{name}
 Version:	%{version}
@@ -27,6 +27,7 @@ BuildRequires:	make
 BuildRequires:	python
 BuildRequires:	readline-devel
 Requires:	gputils
+Conflicts:	sdcc2.9
 Provides:	%{name}-doc
 Obsoletes:	%{name}-doc
 
