@@ -5,7 +5,7 @@
 Name:		%{name}
 Version:	%{version}
 Release:	%{rel}
-Summary:	SDCC - Small Device C Compiler
+Summary:	- Small Device C Compiler
 Group:		Development/Other
 License:	GPLv2
 URL:		http://sdcc.sourceforge.net/
