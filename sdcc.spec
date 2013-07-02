@@ -2,14 +2,14 @@
 %define version	3.0.0
 %define rel	4
 
-Name:		%{name}
-Version:	%{version}
-Release:	%{rel}
-Summary:	- Small Device C Compiler
+Name:		sdcc
+Version:	3.0.0
+Release:	4
+Summary:	Small Device C Compiler
 Group:		Development/Other
 License:	GPLv2
 URL:		http://sdcc.sourceforge.net/
-Source0:		http://sdcc.sourceforge.net/snapshots/sdcc.src/%{name}-src-%{version}.tar.bz2
+Source0:	http://sdcc.sourceforge.net/snapshots/sdcc.src/%{name}-src-%{version}.tar.bz2
 Patch0:		sdcc-src-3.0.0-fix-build-on-mandriva.patch
 BuildRequires:	binutils
 BuildRequires:	bison
@@ -48,7 +48,6 @@ PIC18 series.
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 mv -f %{buildroot}/%{_datadir}/doc installed-docs
 
