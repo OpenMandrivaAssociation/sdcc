@@ -1,10 +1,6 @@
-%define name	sdcc
-%define version	3.0.0
-%define rel	4
-
 Name:		sdcc
 Version:	3.0.0
-Release:	4
+Release:	5
 Summary:	Small Device C Compiler
 Group:		Development/Other
 License:	GPLv2
@@ -26,6 +22,7 @@ BuildRequires:	lyx
 BuildRequires:	make
 BuildRequires:	python
 BuildRequires:	readline-devel
+BuildRequires:	ghostscript-common
 Requires:	gputils
 Conflicts:	sdcc2.9
 Provides:	%{name}-doc
@@ -57,51 +54,3 @@ mv -f %{buildroot}/%{_datadir}/doc installed-docs
 %doc installed-docs/*
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/%{name}
-
-
-%changelog
-* Sun Dec 26 2010 Jani Välimaa <wally@mandriva.org> 3.0.0-3mdv2011.0
-+ Revision: 625251
-- conflict with sdcc2.9
-
-* Sun Dec 26 2010 Jani Välimaa <wally@mandriva.org> 3.0.0-2mdv2011.0
-+ Revision: 625213
-- remove old source
-- add old build options back
-- enable parallel build
-
-* Fri Nov 05 2010 Thomas Spuhler <tspuhler@mandriva.org> 3.0.0-1mdv2011.0
-+ Revision: 593611
-- updated  for 3.0.0
-- added source for 3.0.0
-- added fix-build-on-mandriva.patch for 3.0.0
-- increased rel to 6 for rebuild
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - rebuild
-
-* Fri Apr 18 2008 Giuseppe Ghibò <ghibo@mandriva.com> 2.8.0-4mdv2009.0
-+ Revision: 195717
-- Fix permission for binaries.
-
-* Sat Apr 12 2008 Giuseppe Ghibò <ghibo@mandriva.com> 2.8.0-3mdv2009.0
-+ Revision: 192616
-- Added python to BuildRequires.
-- Release 2.8.0.
-- Build PDF and HTML documentation
-- Merge docs into main package.
-
-  + Olivier Blin <oblin@mandriva.com>
-    - restore BuildRoot
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - kill re-definition of %%buildroot on Pixel's request
-    - fix summary-ended-with-dot
-
-* Fri Oct 19 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 2.7.0.20071018.4933-1mdv2008.1
-+ Revision: 100482
-- Added missing BuildRequires to flex.
-- Fixed Group tag.
-- First package.
-- Created package structure for sdcc.
-
