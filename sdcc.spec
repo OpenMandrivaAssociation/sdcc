@@ -1,7 +1,7 @@
 Summary:	Small Device C Compiler
 Name:		sdcc
 Version:	3.3.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Other
 Url:		http://sdcc.sourceforge.net/
