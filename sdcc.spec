@@ -1,12 +1,13 @@
 Summary:	Small Device C Compiler
 Name:		sdcc
-Version:	3.3.0
-Release:	2
+Version:	3.6.0
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 Url:		http://sdcc.sourceforge.net/
 Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-src-%{version}.tar.bz2
 Source1:	http://sourceforge.net/projects/%{name}/files/%{name}-doc/%{version}/%{name}-doc-%{version}.tar.bz2
+Source100:	%{name}.rpmlintrc
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	ghostscript-common
@@ -39,6 +40,8 @@ PIC18 series.
 %setup -q -b 1
 
 %build
+export CC=gcc
+export CXX=g++
 %global optflags %{optflags} -Wstrict-aliasing=0
 %configure2_5x \
 	--enable-libgc \
