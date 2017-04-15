@@ -18,6 +18,7 @@ BuildRequires:	boost-devel
 BuildRequires:	glibc-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig(bdw-gc)
+BuildRequires:	texinfo
 Requires:	gputils
 Conflicts:	sdcc2.9
 
