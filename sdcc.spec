@@ -1,6 +1,6 @@
 Summary:	Small Device C Compiler
 Name:		sdcc
-Version:	3.6.0
+Version:	3.8.0
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
@@ -12,13 +12,10 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	ghostscript-common
 BuildRequires:	gputils
-BuildRequires:	latex2html
-#BuildRequires:	lyx
 BuildRequires:	boost-devel
 BuildRequires:	glibc-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig(bdw-gc)
-BuildRequires:	texinfo
 Requires:	gputils
 Conflicts:	sdcc2.9
 
@@ -41,10 +38,8 @@ PIC18 series.
 %setup -q -b 1
 
 %build
-export CC=gcc
-export CXX=g++
 %global optflags %{optflags} -Wstrict-aliasing=0
-%configure2_5x \
+%configure \
 	--enable-libgc \
 	--disable-doc \
 	PDFOPT="/bin/cp"
