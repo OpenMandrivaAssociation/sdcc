@@ -1,0 +1,12 @@
+diff -up sdcc-4.4.0/src/SDCCgenconstprop.cc.omv~ sdcc-4.4.0/src/SDCCgenconstprop.cc
+--- sdcc-4.4.0/src/SDCCgenconstprop.cc.omv~	2024-04-24 16:45:33.395623980 +0200
++++ sdcc-4.4.0/src/SDCCgenconstprop.cc	2024-04-24 16:45:45.119751843 +0200
+@@ -501,7 +501,7 @@ valinfoMod (struct valinfo *result, cons
+       result->min = std::min (left.min, 0ll);
+       result->max = std::max (left.max, 0ll);
+     }
+-  if (!left.anything && !right.anything && left.min >= 0 && right.min >= 0 && right.max <= result->max);
++  if (!left.anything && !right.anything && left.min >= 0 && right.min >= 0 && right.max <= result->max)
+     result->max = right.max - 1;
+ }
+ 

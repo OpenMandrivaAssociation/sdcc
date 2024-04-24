@@ -1,0 +1,21 @@
+diff -up sdcc-4.4.0/support/cpp/libcpp/lex.cc.omv~ sdcc-4.4.0/support/cpp/libcpp/lex.cc
+--- sdcc-4.4.0/support/cpp/libcpp/lex.cc.omv~	2024-04-24 16:43:56.694568645 +0200
++++ sdcc-4.4.0/support/cpp/libcpp/lex.cc	2024-04-24 16:44:16.674786809 +0200
+@@ -445,7 +445,7 @@ search_line_sse42 (const uchar *s, const
+ 
+       /* ??? The builtin doesn't understand that the PCMPESTRI read from
+ 	 memory need not be aligned.  */
+-      sv = __builtin_ia32_loaddqu ((const char *) s);
++      sv = __builtin_ia32_lddqu ((const char *) s);
+       index = __builtin_ia32_pcmpestri128 (search, 4, sv, 16, 0);
+ 
+       if (__builtin_expect (index < 16, 0))
+@@ -465,7 +465,7 @@ search_line_sse42 (const uchar *s, const
+ 
+       /* By using inline assembly instead of the builtin,
+ 	 we can use the result, as well as the flags set.  */
+-      __asm ("%vpcmpestri\t$0, %2, %3"
++      __asm ("vpcmpestri\t$0, %2, %3"
+ 	     : "=c"(index), "=@ccc"(f)
+ 	     : "m"(*s), "x"(search), "a"(4), "d"(16));
+       if (f)
