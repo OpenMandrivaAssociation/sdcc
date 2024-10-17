@@ -4,7 +4,7 @@ Version:	4.4.0
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
-Url:		http://sdcc.sourceforge.net/
+Url:		https://sdcc.sourceforge.net/
 Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-src-%{version}.tar.bz2
 Source1:	http://sourceforge.net/projects/%{name}/files/%{name}-doc/%{version}/%{name}-doc-%{version}.tar.bz2
 Source100:	%{name}.rpmlintrc
