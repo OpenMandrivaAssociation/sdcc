@@ -1,15 +1,19 @@
-Summary:	Small Device C Compiler
 Name:		sdcc
-Version:	4.4.0
+Version:	4.5.0
 Release:	1
-License:	GPLv2+
+Summary:	Small Device C Compiler
+URL:		https://sdcc.sourceforge.net/
+License:	GPL-2.0-or-later
 Group:		Development/Other
-Url:		https://sdcc.sourceforge.net/
 Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-src-%{version}.tar.bz2
 Source1:	http://sourceforge.net/projects/%{name}/files/%{name}-doc/%{version}/%{name}-doc-%{version}.tar.bz2
 Source100:	%{name}.rpmlintrc
 Patch0:		sdcc-4.4.0-compile.patch
-Patch1:		sdcc-4.4.0-bogus-if.patch
+Patch1:		sdcc-4.5.0-aslink.patch
+Patch2:		sdcc-4.5.0-bool.patch
+
+BuildRequires:	autoconf automake slibtool
+BuildRequires:	make
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	ghostscript-common
@@ -19,6 +23,8 @@ BuildRequires:	glibc-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig(bdw-gc)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(python)
+
 Requires:	gputils
 Conflicts:	sdcc2.9
 
@@ -28,34 +34,51 @@ Intel 8051, Maxim 80DS390, Zilog Z80 and the Motorola 68HC08 based
 MCUs. Work is in progress on supporting the Microchip PIC16 and
 PIC18 series.
 
-%files
-%defattr(0644,root,root,0755)
-%doc doc/README* ChangeLog
-%doc installed-docs/*
-%attr(755,root,root) %{_bindir}/*
-%{_datadir}/%{name}/
-%{_libexecdir}/sdcc
-%{_mandir}/man1/serialview.1*
-%{_mandir}/man1/ucsim.1*
-
-#----------------------------------------------------------------------------
 
 %prep
 %autosetup -p1 -b 1
 
 %build
-#global optflags %{optflags} -Wstrict-aliasing=0
+export CC=/usr/bin/gcc
+export CXX=/usr/bin/g++
+export PYTHON=%{__python}
+export LDFLAGS="${LDFLAGS} -Wl,--as-needed"
+#global optflags %%{optflags} -Wstrict-aliasing=0
 %configure \
 	--enable-libgc \
 	--disable-doc \
+	--docdir=%{_docdir}/sdcc \
 	PDFOPT="/bin/cp"
 
-# The build system isn't SMP safe
-make
+%make_build VERBOSE=
 
 %install
 %make_install
-mv -f %{buildroot}/%{_datadir}/doc installed-docs
+
+# remove build-generated directory from doc source
+rm -rf %{builddir}/doc/ucsim
+# move docs from builddir into buildroot
+mv -f %{builddir}/doc/* %{buildroot}%{_docdir}/%{name}/
+# remove unneccessary file
+rm -f %{buildroot}%{_docdir}/%{name}/INSTALL.txt
+# emacs lisp
+mkdir -p %{buildroot}%{_datadir}/emacs/site-lisp/%{name}
+mv %{buildroot}%{_bindir}/*.el %{buildroot}%{_datadir}/emacs/site-lisp/%{name}
+
+find %{buildroot}%{_datadir}/%{name}/lib/src/pic16 -iname \*lib*.a -exec chmod 664 '{}' \;
+find %{buildroot}%{_datadir}/%{name}/lib/src/pic14 -iname \*lib*.a -exec chmod 664 '{}' \;
+find %{buildroot}%{_datadir}/%{name}/non-free/lib/src/pic16 -iname \*lib*.a -exec chmod 664 '{}' \;
+find %{buildroot}%{_datadir}/%{name}/non-free/lib/src/pic14 -iname \*lib*.a -exec chmod 664 '{}' \;
 
 # We have it in binutils-devel
 rm -f %{buildroot}%{_libdir}/libiberty.a
+
+#----------------------------------------------------------------------------
+
+%files
+%{_docdir}/%{name}
+%{_bindir}/*
+%{_datadir}/%{name}
+%{_datadir}/emacs/site-lisp/%{name}/*.el
+%{_libexecdir}/sdcc
+%{_mandir}/man1/*

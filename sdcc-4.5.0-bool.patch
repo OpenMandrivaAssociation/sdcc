@@ -1,0 +1,85 @@
+diff -urN sdcc-4.5.0/debugger/mcs51/sdcdb.c sdcc-4.5.0-bool/debugger/mcs51/sdcdb.c
+--- sdcc-4.5.0/debugger/mcs51/sdcdb.c	2023-08-19 09:13:52.000000000 +0100
++++ sdcc-4.5.0-bool/debugger/mcs51/sdcdb.c	2025-12-03 15:23:48.931190137 +0000
+@@ -62,8 +62,8 @@
+ int nLinkrecs = 0;
+ linkrec **linkrecs = NULL; /* all linkage editor records */
+ context *currCtxt = NULL;
+-short fullname = 0;
+-short showfull = 0;
++bool fullname = false;
++bool showfull = false;
+ char userinterrupt = 0;
+ char nointerrupt = 0;
+ char contsim = 0;
+@@ -573,7 +573,7 @@
+         {
+           /* for module records do */
+           case MOD_REC:
+-            currMod = parseModule(loop->line, TRUE);
++            currMod = parseModule(loop->line, true);
+             currModName = currMod->name ;
+ 
+             /* search the c source file and load it into buffer */
+@@ -1906,7 +1906,7 @@
+ 
+           if (strcmp(argv[i], "-fullname") == 0)
+             {
+-              fullname = TRUE;
++              fullname = false;
+               continue;
+             }
+ 
+diff -urN sdcc-4.5.0/debugger/mcs51/sdcdb.h sdcc-4.5.0-bool/debugger/mcs51/sdcdb.h
+--- sdcc-4.5.0/debugger/mcs51/sdcdb.h	2024-02-04 18:33:46.000000000 +0000
++++ sdcc-4.5.0-bool/debugger/mcs51/sdcdb.h	2025-12-03 15:25:13.083877262 +0000
+@@ -46,6 +46,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <ctype.h>
++#include <stdbool.h>
+ #include <limits.h>
+ #ifdef HAVE_CONFIG_H
+ # include "config.h"
+@@ -57,11 +58,6 @@
+ #include "src/SDCCset.h"
+ #include "src/SDCChasht.h"
+ 
+-#define TRUE 1
+-#define FALSE !TRUE
+-
+-typedef short bool;
+-
+ #ifndef max
+ #define max(a,b) (a > b ? a : b)
+ #endif
+@@ -270,7 +266,7 @@
+ extern char *currModName ;
+ extern char userinterrupt ;
+ extern char nointerrupt ;
+-extern short showfull ;
++extern bool showfull ;
+ extern int nStructs ;
+ extern struct structdef **structs ; /* all structures */
+ extern char *ssdirl; /* source directory search path */
+@@ -279,7 +275,7 @@
+ char *gc_strdup(const char *s);
+ srcLine **loadFile (char *name, int *nlines);
+ 
+-extern short fullname;
++extern bool fullname;
+ extern int srcMode;
+ extern char contsim;
+ char *searchDirsFname (char *);
+diff -urN sdcc-4.5.0/debugger/mcs51/symtab.c sdcc-4.5.0-bool/debugger/mcs51/symtab.c
+--- sdcc-4.5.0/debugger/mcs51/symtab.c	2024-02-04 18:33:46.000000000 +0000
++++ sdcc-4.5.0-bool/debugger/mcs51/symtab.c	2025-12-03 15:26:59.517243003 +0000
+@@ -836,7 +836,7 @@
+   mod = NULL;
+   if (!applyToSet(modules,moduleWithCName,mname,&mod))
+     {
+-      mod = parseModule(mname, FALSE);
++      mod = parseModule(mname, false);
+       mod->c_name = alloccpy(mname,strlen(mname));
+       mod->cfullname=searchDirsFname(mod->c_name);
+       mod->cLines = loadFile(mod->c_name,&mod->ncLines);
