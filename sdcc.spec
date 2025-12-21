@@ -12,6 +12,7 @@ Patch0:		sdcc-4.4.0-compile.patch
 Patch1:		sdcc-4.5.0-aslink.patch
 Patch2:		sdcc-4.5.0-bool.patch
 
+BuildRequires:	libtool-base
 BuildRequires:	autoconf automake slibtool
 BuildRequires:	make
 BuildRequires:	bison
