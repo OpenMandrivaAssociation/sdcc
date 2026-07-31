@@ -1,5 +1,5 @@
 Name:		sdcc
-Version:	4.5.0
+Version:	4.6.0
 Release:	1
 Summary:	Small Device C Compiler
 URL:		https://sdcc.sourceforge.net/
@@ -8,9 +8,9 @@ Group:		Development/Other
 Source0:	http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-src-%{version}.tar.bz2
 Source1:	http://sourceforge.net/projects/%{name}/files/%{name}-doc/%{version}/%{name}-doc-%{version}.tar.bz2
 Source100:	%{name}.rpmlintrc
-Patch0:		sdcc-4.4.0-compile.patch
-Patch1:		sdcc-4.5.0-aslink.patch
-Patch2:		sdcc-4.5.0-bool.patch
+# dropped (no longer applies): Patch0:		sdcc-4.4.0-compile.patch
+# dropped (no longer applies): Patch1:		sdcc-4.6.0-aslink.patch
+# dropped (no longer applies): Patch2:		sdcc-4.6.0-bool.patch
 
 BuildRequires:	libtool-base
 BuildRequires:	autoconf automake slibtool
