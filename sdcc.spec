@@ -19,6 +19,7 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	ghostscript-common
 BuildRequires:	gputils
+BuildRequires:	atomic-devel
 BuildRequires:	boost-devel
 BuildRequires:	glibc-devel
 BuildRequires:	libstdc++-devel
